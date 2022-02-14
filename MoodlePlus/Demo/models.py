@@ -42,12 +42,12 @@ class Professor(models.Model):
 
 class Course(models.Model):
     name = models.CharField(max_length=128, unique=True)
-    prerequisite = models.ManyToManyField('self')
+    prerequisite = models.ManyToManyField('self', symmetrical=False)
     time_period = models.ManyToManyField(TimePeriod)
     professor = models.ForeignKey(Professor, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return self.name+'pre:'+str(self.prerequisite)
 
 
 class Student(models.Model):
