@@ -58,17 +58,16 @@ def populate_user(student_usernames, professor_usernames):
     return
 
 
-def populate_student(student_courses):
-    for item in student_courses:
-        t = Student.objects.get_or_create(user=User.objects.get(username=item['name']))[0]
-        t.course.set([Course.objects.get(name=c) for c in item['courses']])
+def populate_professor(professor_usernames):
+    for name in professor_usernames:
+        t = Professor.objects.get_or_create(user=User.objects.get(username=name))[0]
         t.save()
     return
 
 
-def populate_professor(professor_usernames):
-    for name in professor_usernames:
-        t = Professor.objects.get_or_create(user=User.objects.get(username=name))[0]
+def populate_student(student_usernames):
+    for name in student_usernames:
+        t = Student.objects.get_or_create(user=User.objects.get(username=name))[0]
         t.save()
     return
 
@@ -79,6 +78,7 @@ def populate_course(courses):
         t.prerequisite.set([Course.objects.get(name=pre) for pre in course['prerequisite']])
         t.time_period.set([TimePeriod.objects.get(day=day, time=time) for day, time in course['time_period']])
         t.professor = Professor.objects.get_or_create(user=User.objects.get(username=course['professor']))[0]
+        t.student.set([Student.objects.get(user=User.objects.get(username=student)) for student in course['student']])
         t.save()
     return
 
@@ -104,13 +104,14 @@ def populate():
 
     # Set courses info here.
     courses = [
-        {'name': 'course A', 'prerequisite': [], 'time_period': [(TimePeriod.MON, 9)], 'professor': 'Harry'},
+        {'name': 'course A', 'prerequisite': [], 'time_period': [(TimePeriod.MON, 9)], 'professor': 'Harry',
+         'student': ['Jack', ], },
         {'name': 'course B', 'prerequisite': [], 'time_period': [(TimePeriod.MON, 10), (TimePeriod.TUE, 10)],
-         'professor': 'Harry'},
+         'professor': 'Harry', 'student': [], },
         {'name': 'course C', 'prerequisite': ['course B'], 'time_period': [(TimePeriod.MON, 11)],
-         'professor': 'Charlotte'},
+         'professor': 'Charlotte', 'student': [], },
         {'name': 'course C Hard', 'prerequisite': ['course C', 'course A'], 'time_period': [(TimePeriod.MON, 10)],
-         'professor': 'Charlotte'},
+         'professor': 'Charlotte', 'student': [], },
     ]
 
     # Set assignments here.
@@ -120,20 +121,14 @@ def populate():
         {'course': 'course B', 'title': 'Assignment 03', 'detail': 'Assignment 03 detail.'},
     ]
 
-    # Set which courses students have chosen here.
-    student_courses=[
-        {'name':'Jack','courses':['course A','course B']},
-        {'name': 'Emily', 'courses': ['course B', 'course C']},
-    ]
-
     populate_time_period()
     populate_user(student_usernames, professor_usernames)
     # The Professor points to the User, so the User goes first.
     populate_professor(professor_usernames)
-    # The Course points to the Professor. By the way it also points to itself.
+    # The Student points to the User.
+    populate_student(student_usernames)
+    # The Course points to those above.
     populate_course(courses)
-    # The Student points to both the User and the Course.
-    populate_student(student_courses)
     # The Assignment points to the Course
     populate_assignment(assignments)
 
