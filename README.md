@@ -1,16 +1,16 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [1.0.0] - 2022-02-13
+## [1.0.0] - 2022-02-14
 ### Added
 * Initial commit.
-## [1.0.1] - 2022-02-14
+## [1.0.1] - 2022-02-15
 ### Added
 * README file added.
 ### Changed
 * ER diagram updated.
 * Models.py updated.
-## [1.0.2] - 2022-02-15
+## [1.0.2] - 2022-02-16
 ### Added
 * Index, login and registration page added.
 * Human-readable changelog added.
