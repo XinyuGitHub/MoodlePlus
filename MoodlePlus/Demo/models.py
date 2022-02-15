@@ -44,10 +44,10 @@ class Course(models.Model):
     name = models.CharField(max_length=128, unique=True)
     prerequisite = models.ManyToManyField('self', symmetrical=False)
     time_period = models.ManyToManyField(TimePeriod)
-    professor = models.ForeignKey(Professor, on_delete=models.CASCADE)
+    professor = models.ForeignKey(Professor, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
-        return self.name+'pre:'+str(self.prerequisite)
+        return self.name+' by '+self.professor.user.username
 
 
 class Student(models.Model):
@@ -63,6 +63,9 @@ class Assigment(models.Model):
     title = models.CharField(max_length=128)
     detail = models.TextField(max_length=512)
 
+    class Meta:
+        unique_together = (("course", "title"),)
+
     def __str__(self):
-        return self.course.name+self.title
+        return self.title+' for '+self.course.name
 
