@@ -1,8 +1,25 @@
+# Changelog
+All notable changes to this project will be documented in this file.
+
+## [1.0.0] - 2022-02-13
+### Added
+* Initial commit.
+## [1.0.1] - 2022-02-14
+### Added
+* README file added.
+### Changed
+* ER diagram updated.
+* Models.py updated.
+## [1.0.2] - 2022-02-15
+### Added
+* Index, login and registration page added.
+* Human-readable changelog added.
+
 # LTC++
 
 ## a Moodle-like website
 
-### Backend demo
+### Database demo
 
 ![ER Diagram](https://github.com/XinyuGitHub/MoodlePlus/blob/master/ERD_Feb15.png)
 
@@ -36,3 +53,13 @@ Username: 	admin
 Password: 	123456
 ```
 
+### Backend demo
+* You will be able to visit the index page now.
+```
+http://127.0.0.1:8000/demo/
+```
+* Follow the links on that page to register and log in, or click the links below.
+```
+http://127.0.0.1:8000/demo/register/
+http://127.0.0.1:8000/demo/login/
+```
