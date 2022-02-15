@@ -4,12 +4,12 @@
 
 ### Backend demo
 
-* ![ER Diagram](https://github.com/XinyuGitHub/MoodlePlus/blob/master/ERD_Feb15.png)
+![ER Diagram](https://github.com/XinyuGitHub/MoodlePlus/blob/master/ERD_Feb15.png)
 
 Here is how to populate some dummy data into the database for testing.
 
 * First, set up your virtual environment with Django==2.2.
-* Run the following cammands to create a database because \*.sqlite3 files will not be tracked by Git.
+* Run the following commands to create a database because \*.sqlite3 files will not be tracked by Git.
 
 ```
 python manage.py makemigrations Demo
