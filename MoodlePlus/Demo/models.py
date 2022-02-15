@@ -30,32 +30,33 @@ class TimePeriod(models.Model):
         unique_together = (("day", "time"),)
 
     def __str__(self):
-        return self.day+' '+str(self.time)
+        return self.day + ' ' + str(self.time)
 
 
 class Professor(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.user.username+' is a professor.'
-
-
-class Course(models.Model):
-    name = models.CharField(max_length=128, unique=True)
-    prerequisite = models.ManyToManyField('self', symmetrical=False)
-    time_period = models.ManyToManyField(TimePeriod)
-    professor = models.ForeignKey(Professor, on_delete=models.CASCADE, null=True)
-
-    def __str__(self):
-        return self.name+' by '+self.professor.user.username
+        return str(self.user)
 
 
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    course = models.ManyToManyField(Course)
 
     def __str__(self):
-        return self.user.username+' is a student.'
+        return str(self.user)
+
+
+class Course(models.Model):
+    name = models.CharField(max_length=128, unique=True)
+    description = models.TextField(max_length=512, null=True)
+    prerequisite = models.ManyToManyField('self', symmetrical=False)
+    professor = models.ForeignKey(Professor, on_delete=models.CASCADE, null=True)
+    student = models.ManyToManyField(Student)
+    time_period = models.ManyToManyField(TimePeriod)
+
+    def __str__(self):
+        return self.name
 
 
 class Assigment(models.Model):
@@ -67,5 +68,4 @@ class Assigment(models.Model):
         unique_together = (("course", "title"),)
 
     def __str__(self):
-        return self.title+' for '+self.course.name
-
+        return str(self.course)+' '+self.title
