@@ -54,12 +54,17 @@ class Course(models.Model):
     professor = models.ForeignKey(Professor, on_delete=models.CASCADE, null=True)
     student = models.ManyToManyField(Student)
     time_period = models.ManyToManyField(TimePeriod)
+    slug = models.SlugField(unique=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Course, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name
 
 
-class Assigment(models.Model):
+class Assignment(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     title = models.CharField(max_length=128)
     detail = models.TextField(max_length=512)

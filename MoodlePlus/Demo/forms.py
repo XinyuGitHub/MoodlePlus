@@ -28,5 +28,5 @@ class CourseForm(forms.ModelForm):
 class AssignmentForm(forms.ModelForm):
 
     class Meta:
-        model = Assigment
+        model = Assignment
         exclude = ()

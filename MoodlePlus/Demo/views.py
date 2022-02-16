@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
-from .forms import UserForm, CourseForm, AssignmentForm
+from .forms import *
 from .models import *
 
 
@@ -96,3 +96,44 @@ def add_assignment(request):
 def user_logout(request):
     logout(request)
     return redirect(reverse('Demo:index'))
+
+
+@login_required
+def student_page(request):
+    try:
+        s = request.user.student
+    except:
+        error_msg = "You are not a logged student."
+        context = {'error_msg': error_msg}
+        return render(request, 'Demo/index.html', context)
+
+    courses = s.course_set.all()
+    context = {'student': s, 'courses': courses}
+    return render(request, 'Demo/student_page.html', context)
+
+@login_required
+def professor_page(request):
+    try:
+        p = request.user.professor
+    except:
+        error_msg = "You are not a logged professor."
+        context = {'error_msg': error_msg}
+        return render(request, 'Demo/index.html', context)
+
+    courses = p.course_set.all()
+    context = {'professor': p, 'courses': courses}
+    return render(request, 'Demo/professor_page.html', context)
+
+
+def course_page(request, slug):
+    try:
+        c = Course.objects.get(slug=slug)
+    except:
+        error_msg = "Course not found."
+        context = {'error_msg': error_msg}
+        return render(request, 'Demo/index.html', context)
+    prerequisite = c.prerequisite.all()
+    student = c.student.all()
+    time_period = c.time_period.all()
+    context = {'course': c, 'prerequisite': prerequisite, 'student': student, 'time_period': time_period, }
+    return render(request, 'Demo/course_page.html', context)

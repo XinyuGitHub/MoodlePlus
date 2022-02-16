@@ -86,7 +86,7 @@ def populate_course(courses):
 def populate_assignment(assignments):
     for info in assignments:
         try:
-            t = Assigment.objects.create(course=Course.objects.get(name=info['course']))
+            t = Assignment.objects.create(course=Course.objects.get(name=info['course']))
             t.title = info['title']
             t.detail = info['detail']
             t.save()

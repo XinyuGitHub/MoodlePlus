@@ -1,0 +1,16 @@
+{% extends 'Demo/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+	Student Page
+{% endblock %}
+
+{% block body_block %}
+    {{ student }}
+    <hr />
+    <ul>
+    {% for course in courses %}
+    <li><a href="{% url 'Demo:course_page' course.slug %}">{{course}}</a></li>
+    {% endfor %}
+    </ul>
+{% endblock %}

@@ -1,23 +1,3 @@
-# Changelog
-All notable changes to this project will be documented in this file.
-
-## [1.0.0] - 2022-02-14
-### Added
-* Initial commit.
-## [1.0.1] - 2022-02-15
-### Added
-* README file added.
-### Changed
-* ER diagram updated.
-* Models.py updated.
-## [1.0.2] - 2022-02-16
-### Added
-* Index, login and registration page added.
-* Human-readable changelog added.
-* Users can add courses now.
-* Users can add assignments now.
-* Log out function added.
-
 # LTC++
 
 ## a Moodle-like website
@@ -66,3 +46,28 @@ http://127.0.0.1:8000/demo/
 http://127.0.0.1:8000/demo/register/
 http://127.0.0.1:8000/demo/login/
 ```
+There are lots of views implemented. Have a try.
+
+# Changelog
+All notable changes to this project will be documented in this file.
+## [1.0.0] - 2022-02-14
+### Added
+* Initial commit.
+## [1.0.1] - 2022-02-15
+### Added
+* README file added.
+### Changed
+* ER diagram updated.
+* Models.py updated.
+## [1.0.2] - 2022-02-16
+### Added
+* Index, login and registration page added.
+* Human-readable changelog added.
+* Users can add courses now.
+* Users can add assignments now.
+* Log out function added.
+* Student page added.
+* Professor page added.
+* Course page added.
+### Fixed
+Typo:   Assigment -> Assignment
