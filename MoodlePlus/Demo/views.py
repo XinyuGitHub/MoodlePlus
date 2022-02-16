@@ -1,8 +1,9 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from .forms import UserForm
+from django.contrib.auth.decorators import login_required
+from .forms import UserForm, CourseForm, AssignmentForm
 from .models import *
 
 
@@ -14,11 +15,11 @@ def index(request):
 
 def register(request):
     form = UserForm()
-    registered= False
+    registered = False
     if request.method == 'POST':
         form = UserForm(request.POST)
         if form.is_valid():
-            t= form.save()
+            t = form.save()
             t.set_password(t.password)
             if form.cleaned_data['identity'] == UserForm.STUDENT:
                 t.is_staff = False
@@ -32,7 +33,7 @@ def register(request):
                 p.save()
             else:
                 raise RuntimeError('Unknown identity. Ask Xinyu for help.')
-            registered= True
+            registered = True
         else:
             print(form.errors)
     else:
@@ -57,3 +58,41 @@ def user_login(request):
             return HttpResponse("Invalid login details supplied.")
     else:
         return render(request, 'Demo/login.html')
+
+
+def add_course(request):
+    form = CourseForm()
+    added = False
+    if request.method == 'POST':
+        form = CourseForm(request.POST)
+        if form.is_valid():
+            t = form.save()
+            added = True
+        else:
+            print(form.errors)
+    else:
+        pass
+    context = {'form': form, 'added': added}
+    return render(request, 'Demo/add_course.html', context)
+
+
+def add_assignment(request):
+    form = AssignmentForm()
+    added = False
+    if request.method == 'POST':
+        form = AssignmentForm(request.POST)
+        if form.is_valid():
+            t = form.save()
+            added = True
+        else:
+            print(form.errors)
+    else:
+        pass
+    context = {'form': form, 'added': added}
+    return render(request, 'Demo/add_assignment.html', context)
+
+
+@login_required
+def user_logout(request):
+    logout(request)
+    return redirect(reverse('Demo:index'))

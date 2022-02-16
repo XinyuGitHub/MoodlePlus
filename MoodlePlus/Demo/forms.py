@@ -16,3 +16,17 @@ class UserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('username', 'password',)
+
+
+class CourseForm(forms.ModelForm):
+
+    class Meta:
+        model = Course
+        exclude = ()
+
+
+class AssignmentForm(forms.ModelForm):
+
+    class Meta:
+        model = Assigment
+        exclude = ()

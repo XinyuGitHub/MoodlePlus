@@ -14,6 +14,9 @@ All notable changes to this project will be documented in this file.
 ### Added
 * Index, login and registration page added.
 * Human-readable changelog added.
+* Users can add courses now.
+* Users can add assignments now.
+* Log out function added.
 
 # LTC++
 
